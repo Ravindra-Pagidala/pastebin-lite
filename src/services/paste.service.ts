@@ -34,8 +34,7 @@ export async function createPaste(
  * Fetch a paste by ID (API contract)
  * Each successful fetch counts as ONE view
  */
-export async function fetchPaste(id: string, req?: IncomingMessage)
-: Promise<{
+export async function fetchPaste(id: string, req?: IncomingMessage): Promise<{
   content: string;
   remaining_views: number | null;
   expires_at: string | null;
@@ -48,34 +47,32 @@ export async function fetchPaste(id: string, req?: IncomingMessage)
 
   const now = nowMs(req);
 
-  const expiredByTTL =
-    paste.expiresAt !== null && now >= paste.expiresAt;
-
-  const exceededViews =
-    paste.maxViews !== null && paste.views >= paste.maxViews;
+  const expiredByTTL = paste.expiresAt !== null && paste.expiresAt !== undefined && now >= paste.expiresAt;
+  
+  const exceededViews = paste.maxViews !== null && 
+                       paste.maxViews !== undefined && 
+                       paste.views >= paste.maxViews;
 
   if (expiredByTTL || exceededViews) {
     throw notFound();
   }
 
   await incrementViews(id);
-
   const usedViews = paste.views + 1;
 
-  const remainingViews =
-    paste.maxViews === null
-      ? null
-      : Math.max(0, paste.maxViews - usedViews);
+  const remainingViews = paste.maxViews !== null && paste.maxViews !== undefined
+    ? Math.max(0, paste.maxViews - usedViews)
+    : null;
 
   return {
     content: paste.content,
     remaining_views: remainingViews,
-    expires_at:
-      paste.expiresAt === null
-        ? null
-        : new Date(paste.expiresAt).toISOString(),
+    expires_at: paste.expiresAt === null || paste.expiresAt === undefined
+      ? null
+      : new Date(paste.expiresAt).toISOString(),
     max_views: paste.maxViews,
     created_at: paste.createdAt,
     usedViews,
   };
 }
+
