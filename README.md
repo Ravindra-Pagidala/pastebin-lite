@@ -132,6 +132,7 @@ curl -X POST http://localhost:3000/api/pastes \
 ```
 MONGODB_URI=your-full-connection-string-from-step-6
 NEXT_PUBLIC_BASE_URL=https://pastebin-lite-mu-six.vercel.app
+TEST_MODE=1
 ```
 
 2. **Redeploy** → Automatic ✅
