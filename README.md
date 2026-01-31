@@ -107,6 +107,7 @@ Create `.env.local` file:
 ```bash
 MONGODB_URI="mongodb+srv://pastebin_user:YOUR_COPIED_PASSWORD@pastebin-cluster.xxxxx.mongodb.net/?retryWrites=true&w=majority"
 NEXT_PUBLIC_BASE_URL="http://localhost:3000"
+TEST_MODE=1
 ```
 
 ### ▶️ 4. Run Locally
