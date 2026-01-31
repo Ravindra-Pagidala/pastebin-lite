@@ -1,6 +1,6 @@
 # Pastebin Lite 🚀
 
-A production-ready Pastebin clone built with **Next.js 14**, **TypeScript**, **MongoDB Atlas**, and deployed on **Vercel**. **100% automated test compliant**.
+Pastebin Lite is a fully functional Pastebin clone that allows users to create ephemeral text pastes with optional TTL (time-to-live) and view-count limits. Built with Next.js 14 (Pages Router), TypeScript, and MongoDB Atlas, it implements all required API endpoints (`/api/healthz`, `/api/pastes`, `/api/pastes/:id`) and HTML viewer (`/p/:id`). Each paste view atomically increments counters using MongoDB's `$inc` operator to handle concurrency safely. Supports deterministic testing via `x-test-now-ms` header and survives Vercel serverless cold starts through global MongoDB connection pooling. Deployed at https://pastebin-lite-mu-six.vercel.app/ with 100% automated test compliance.
 
 [![Deployed](https://img.shields.io/badge/Deployed-Vercel-brightgreen)](https://pastebin-lite-mu-six.vercel.app/)
 [![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen)](https://pastebin-lite-mu-six.vercel.app/api/healthz)
